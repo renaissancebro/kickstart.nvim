@@ -15,6 +15,9 @@ return {
     { '\\', '<cmd>Neotree toggle<CR>', desc = 'Toggle NeoTree', silent = true },
   },
   opts = {
+    window = {
+      width = 25,
+    },
     filesystem = {
       filtered_items = {
         visible = true, -- Show hidden files

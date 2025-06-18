@@ -89,6 +89,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+vim.g.python3_host_prog = '/Users/joshuafreeman/projects/my-scraper/.venv/bin/python'
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
@@ -102,7 +103,7 @@ vim.g.have_nerd_font = false
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -189,6 +190,11 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<leader>w', ':e<CR>', {
+  noremap = true,
+  silent = true,
+  desc = 'Reload file from disk',
+})
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -205,6 +211,31 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+-- Run current file in terminal split
+vim.keymap.set('n', '<leader>r', function()
+  local file = vim.fn.expand '%'
+  vim.cmd 'w' -- save file before running
+  vim.cmd('split | resize 10 | terminal ' .. get_run_cmd(file))
+end, { desc = 'Run current file in terminal', noremap = true, silent = true })
+
+-- Helper: detect run command based on file extension
+function get_run_cmd(file)
+  local ext = vim.fn.fnamemodify(file, ':e')
+  if ext == 'py' then
+    return 'python3 ' .. file
+  elseif ext == 'sh' then
+    return 'bash ' .. file
+  elseif ext == 'js' then
+    return 'node ' .. file
+  else
+    return "echo '🚫 No runner for ." .. ext .. "'"
+  end
+end
+vim.keymap.set('n', '<leader>t', function()
+  vim.cmd 'belowright split' -- create horizontal split
+  vim.cmd 'resize 10' -- resize it to 10 lines tall
+  vim.cmd 'terminal' -- open terminal
+end, { desc = 'Open terminal below', noremap = true, silent = true })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -419,6 +450,8 @@ require('lazy').setup({
           },
         },
       }
+      -- Custom options plugin
+      require 'custom.options'
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
@@ -475,6 +508,7 @@ require('lazy').setup({
       },
     },
   },
+
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -522,6 +556,12 @@ require('lazy').setup({
       --    That is to say, every time a new file is opened that is associated with
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
       --    function will be executed to configure the current buffer
+      -- Bash LSP
+      local lspconfig = require 'lspconfig'
+
+      -- Bash support — setup LSP BEFORE the attach hook
+      lspconfig.bashls.setup {}
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -673,7 +713,18 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = 'off', -- "off" for no annoying red squiggles
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+              },
+            },
+          },
+        },
+
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -835,7 +886,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'super-tab',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
