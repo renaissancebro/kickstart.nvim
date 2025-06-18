@@ -108,6 +108,9 @@ vim.o.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
 
+-- Use system clipboard for all yank/delete/put operations
+vim.api.nvim_set_option = 'unamedplus'
+--
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
 
