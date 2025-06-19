@@ -328,6 +328,20 @@ require('lazy').setup({
   --
   -- which loads which-key before all the UI elements are loaded. Events can be
   -- normal autocommands events (`:help autocmd-events`).
+  {
+    'kndndrj/nvim-dbee',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
+    build = function()
+      require('dbee').install()
+    end,
+    config = function()
+      require('dbee').setup() -- Basic setup
+    end,
+    event = 'VeryLazy',
+  },
+
   --
   -- Then, because we use the `opts` key (recommended), the configuration runs
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
@@ -988,6 +1002,81 @@ require('lazy').setup({
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
+    -- File explorer
+    { 'nvim-tree/nvim-tree.lua', cmd = 'NvimTreeToggle' },
+
+    -- Terminal toggles & tail logs
+    {
+      'akinsho/toggleterm.nvim',
+      config = function()
+        require('toggleterm').setup {
+          size = 15,
+          direction = 'horizontal',
+          persist_size = true,
+          on_open = function(term)
+            vim.keymap.set('t', 'kk', '<C-\\><C-n>', { buffer = term.bufnr })
+          end,
+        }
+      end,
+    },
+
+    -- Commenting
+    { 'tpope/vim-commentary' },
+
+    -- Indentation block shifting
+    'junegunn/vim-easy-align',
+
+    -- SQLite browsing
+    {
+      'kndndrj/nvim-dbee',
+      dependencies = { 'MunifTanjim/nui.nvim' },
+      build = function()
+        require('dbee').install()
+      end,
+      config = function()
+        require('dbee').setup()
+      end,
+    },
+
+    -- Copilot AI
+    { 'github/copilot.vim' },
+
+    -- Which-Key hints
+    {
+      'folke/which-key.nvim',
+      config = function()
+        require('which-key').setup {}
+      end,
+    },
+
+    -- PDF support via VimTeX + Zathura
+    {
+      'lervag/vimtex',
+      ft = { 'tex', 'latex' },
+      config = function()
+        vim.g.vimtex_view_method = 'zathura'
+        vim.g.vimtex_compiler_method = 'latexmk'
+      end,
+    },
+
+    -- Python venv auto-activation
+    {
+      'AckslD/nvim-venv',
+      config = function()
+        require('venv').setup {}
+      end,
+    },
+
+    -- Optional: Ollama SSH integration
+    {
+      'is0n/ssh.nvim',
+      config = function()
+        require('ssh').setup {
+          default = { host = 'gaming-laptop', user = 'you', cmd = 'ollama' },
+        }
+      end,
+    },
+
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
