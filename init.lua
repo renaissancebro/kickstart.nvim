@@ -253,6 +253,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Terminal & tail logs
+-- Make sure this comes *after* require('which-key').setup()
+-- Seamless insert mode escaping
+vim.keymap.set('i', 'kk', '<Esc>', { noremap = true })
+
+-- Block indent/unindent in visual mode
+vim.keymap.set('v', '<Tab>', '>gv', { noremap = true })
+vim.keymap.set('v', '<S-Tab>', '<gv', { noremap = true })
+
+-- Automatically save buffers, but skip unnamed/new files
+vim.cmd [[
+  autocmd TextChanged,FocusLost * if bufname('%') != '' && &modifiable && !&readonly | silent! update | endif
+]]
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -1060,23 +1074,7 @@ require('lazy').setup({
     },
 
     -- Python venv auto-activation
-    {
-      'AckslD/nvim-venv',
-      config = function()
-        require('venv').setup {}
-      end,
-    },
-
     -- Optional: Ollama SSH integration
-    {
-      'is0n/ssh.nvim',
-      config = function()
-        require('ssh').setup {
-          default = { host = 'gaming-laptop', user = 'you', cmd = 'ollama' },
-        }
-      end,
-    },
-
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
