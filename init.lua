@@ -851,7 +851,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        ruff_lsp = {
+        ruff = {
           settings = {
             args = {
               '--ignore=E501', -- Ignore line too long
@@ -910,7 +910,7 @@ require('lazy').setup({
         ensure_installed = {
           'html',
           'cssls',
-          'tsserver',
+          'ts_ls',
           'tailwindcss',
         }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
