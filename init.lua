@@ -588,7 +588,22 @@ require('lazy').setup({
       --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
       --    function will be executed to configure the current buffer
       -- Bash LSP
+      -- in your lspconfig setup
+      require('lspconfig').tsserver.setup {}
+
       local lspconfig = require 'lspconfig'
+
+      -- JS / TS
+      lspconfig.ts_ls.setup {}
+
+      -- HTML
+      lspconfig.html.setup {}
+
+      -- CSS
+      lspconfig.cssls.setup {}
+
+      -- Tailwind
+      lspconfig.tailwindcss.setup {}
 
       -- Bash support — setup LSP BEFORE the attach hook
       lspconfig.bashls.setup {}
@@ -744,14 +759,12 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        pyright = {
+        ruff_lsp = {
           settings = {
-            python = {
-              analysis = {
-                typeCheckingMode = 'off', -- "off" for no annoying red squiggles
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-              },
+            args = {
+              '--ignore=E501', -- Ignore line too long
+              '--ignore=W503', -- Ignore line break before binary operator
+              '--ignore=E203', -- Ignore whitespace before ':'
             },
           },
         },
@@ -802,7 +815,12 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        ensure_installed = {
+          'html',
+          'cssls',
+          'tsserver',
+          'tailwindcss',
+        }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
           function(server_name)
@@ -1004,7 +1022,22 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'tsx',
+        'css',
+      },
+
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -1132,4 +1165,11 @@ require('lazy').setup({
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
+-- Auto-reload files when they change on disk
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'CursorHoldI', 'FocusGained' }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { '*' },
+})
+
 -- vim: ts=2 sts=2 sw=2 et
