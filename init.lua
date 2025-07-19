@@ -809,9 +809,20 @@ require('lazy').setup({
       vim.diagnostic.config {
         severity_sort = true,
         float = { border = 'rounded', source = 'if_many' },
-        underline = false,
-        signs = false,
-        virtual_text = false,
+        underline = { severity = vim.diagnostic.severity.ERROR },
+        signs = vim.g.have_nerd_font and {
+          text = {
+            [vim.diagnostic.severity.ERROR] = '󰅚 ',
+            [vim.diagnostic.severity.WARN] = '󰀪 ',
+            [vim.diagnostic.severity.INFO] = '󰋽 ',
+            [vim.diagnostic.severity.HINT] = '󰌶 ',
+          },
+        } or {},
+        virtual_text = {
+          severity = { min = vim.diagnostic.severity.ERROR },
+          source = 'if_many',
+          spacing = 2,
+        },
         update_in_insert = false,
       }
 
@@ -839,8 +850,8 @@ require('lazy').setup({
               analysis = {
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
-                typeCheckingMode = "off",
-                diagnosticMode = "workspace",
+                typeCheckingMode = 'basic',
+                diagnosticMode = 'workspace',
                 autoImportCompletions = true,
               },
             },
@@ -875,9 +886,9 @@ require('lazy').setup({
               completion = {
                 callSnippet = 'Replace',
               },
-              diagnostics = { 
+              diagnostics = {
                 disable = { 'missing-fields', 'undefined-global', 'lowercase-global' },
-                globals = { 'vim' }
+                globals = { 'vim' },
               },
               workspace = {
                 checkThirdParty = false,
