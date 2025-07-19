@@ -851,6 +851,16 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+              },
+            },
+          },
+        },
         ruff = {
           settings = {
             args = {
