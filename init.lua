@@ -922,6 +922,8 @@ require('lazy').setup({
           'cssls',
           'ts_ls',
           'tailwindcss',
+          'pyright',
+          'lua_ls',
         }, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
