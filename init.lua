@@ -239,6 +239,29 @@ vim.keymap.set('n', '<leader>t', function()
   vim.cmd 'resize 10' -- resize it to 10 lines tall
   vim.cmd 'terminal' -- open terminal
 end, { desc = 'Open terminal below', noremap = true, silent = true })
+
+-- Toggle type checking mode
+vim.keymap.set('n', '<leader>tc', function()
+  local clients = vim.lsp.get_active_clients({ name = 'pyright' })
+  if #clients == 0 then
+    print("Pyright LSP not active")
+    return
+  end
+
+  local client = clients[1]
+  local current_mode = client.config.settings.python.analysis.typeCheckingMode
+  local new_mode = current_mode == 'off' and 'basic' or 'off'
+  
+  -- Update client settings
+  client.config.settings.python.analysis.typeCheckingMode = new_mode
+  
+  -- Notify the server of the new settings
+  client.notify('workspace/didChangeConfiguration', {
+    settings = client.config.settings
+  })
+  
+  print("Type checking mode: " .. new_mode)
+end, { desc = 'Toggle type checking mode (off/basic)', noremap = true, silent = true })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
