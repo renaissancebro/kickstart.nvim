@@ -218,7 +218,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>r', function()
   local file = vim.fn.expand '%'
   vim.cmd 'w' -- save file before running
-  vim.cmd('split | resize 10 | terminal ' .. get_run_cmd(file))
+  vim.cmd('split | resize 10 | terminal ' .. get_run_cmd(file) .. '; exit')
 end, { desc = 'Run current file in terminal', noremap = true, silent = true })
 
 -- Helper: detect run command based on file extension
