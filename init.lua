@@ -850,7 +850,7 @@ require('lazy').setup({
               analysis = {
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
-                typeCheckingMode = 'basic',
+                typeCheckingMode = 'off',
                 diagnosticMode = 'workspace',
                 autoImportCompletions = true,
               },
