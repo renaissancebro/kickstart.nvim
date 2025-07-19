@@ -1,27 +1,21 @@
 vim.opt.clipboard = 'unnamedplus'
 
--- Enhanced f-string highlighting
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'python',
+-- Enhanced f-string highlighting using tree-sitter
+vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
-    -- Define custom highlight groups for f-strings
-    vim.api.nvim_set_hl(0, 'PythonFStringBrace', { fg = '#ffcc00', bold = true })
-    vim.api.nvim_set_hl(0, 'PythonFStringContent', { fg = '#00ffaa', italic = true })
-    
-    -- Set up syntax matches for f-string components
-    vim.cmd([[
-      syntax match PythonFStringBrace /[{}]/ contained containedin=pythonString
-      syntax region PythonFStringContent start=/{/ end=/}/ contained containedin=pythonString contains=pythonFStringBrace
-    ]])
+    -- F-string brackets and interpolation
+    vim.api.nvim_set_hl(0, '@punctuation.special.python', { fg = '#ffcc00', bold = true })
+    vim.api.nvim_set_hl(0, '@string.escape.python', { fg = '#ff6600', bold = true })
+    -- Content inside f-string braces
+    vim.api.nvim_set_hl(0, '@variable.python', { fg = '#00ffaa' })
   end,
 })
 
--- Alternative: Enhanced tree-sitter highlighting for f-strings
-vim.api.nvim_create_autocmd('ColorScheme', {
+-- Trigger the highlighting on startup
+vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
-    -- Highlight f-string brackets
-    vim.api.nvim_set_hl(0, '@string.special.python', { fg = '#ffcc00', bold = true })
-    vim.api.nvim_set_hl(0, '@punctuation.delimiter.python', { fg = '#ff6600', bold = true })
-    vim.api.nvim_set_hl(0, '@string.interpolation.python', { fg = '#00ffaa', italic = true, bg = '#1a1a2e' })
+    -- Apply f-string highlighting
+    vim.api.nvim_set_hl(0, '@punctuation.special.python', { fg = '#ffcc00', bold = true })
+    vim.api.nvim_set_hl(0, '@string.escape.python', { fg = '#ff6600', bold = true })
   end,
 })
