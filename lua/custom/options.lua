@@ -1,16 +1,42 @@
 vim.opt.clipboard = 'unnamedplus'
 
--- Enhanced f-string highlighting
+-- Debug command to see treesitter groups
+vim.api.nvim_create_user_command('TSHighlight', function()
+  local ts_utils = require('nvim-treesitter.ts_utils')
+  local node = ts_utils.get_node_at_cursor()
+  if node then
+    print("Node type: " .. node:type())
+    local hl_group = vim.treesitter.get_captures_at_cursor(0)
+    for _, capture in ipairs(hl_group) do
+      print("Highlight group: @" .. capture)
+    end
+  end
+end, {})
+
+-- Enhanced f-string highlighting - trying all possible groups
 vim.api.nvim_create_autocmd({'ColorScheme', 'VimEnter'}, {
   callback = function()
-    -- F-string specific highlighting groups
-    vim.api.nvim_set_hl(0, '@string.special', { fg = '#ff9500', bold = true }) -- f-string prefix
-    vim.api.nvim_set_hl(0, '@punctuation.delimiter', { fg = '#ffcc00', bold = true }) -- {} brackets
-    vim.api.nvim_set_hl(0, '@embedded', { fg = '#00ff88', bg = '#2a2a3e' }) -- content inside {}
-    vim.api.nvim_set_hl(0, '@string.interpolation', { fg = '#00ff88', bg = '#2a2a3e' }) -- interpolation content
+    -- Try multiple possible f-string highlight groups
+    local fstring_highlights = {
+      '@string.special',
+      '@string.interpolation', 
+      '@string.escape',
+      '@punctuation.delimiter',
+      '@punctuation.bracket',
+      '@embedded',
+      '@variable.builtin',
+      '@keyword.operator',
+      '@operator',
+      -- Language specific
+      '@string.special.python',
+      '@string.interpolation.python',
+      '@punctuation.delimiter.python',
+      '@punctuation.bracket.python',
+      '@embedded.python',
+    }
     
-    -- Also try these common treesitter groups for f-strings
-    vim.api.nvim_set_hl(0, '@string.regex', { fg = '#ffcc00', bold = true })
-    vim.api.nvim_set_hl(0, '@string.escape', { fg = '#ff6600', bold = true })
+    for _, group in ipairs(fstring_highlights) do
+      vim.api.nvim_set_hl(0, group, { fg = '#ffcc00', bold = true })
+    end
   end,
 })
