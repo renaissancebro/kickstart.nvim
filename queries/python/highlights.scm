@@ -1,21 +1,21 @@
 ; extends
 
-; F-string highlighting
+; VS Code-style f-string highlighting - only highlight prefix and braces
+; F-string prefix (the 'f' before quotes)
 (string
-  (string_start) @PythonFString
-  (string_content)? @PythonFString
-  (string_end) @PythonFString
-  (#match? @PythonFString "^f")
-  (#set! "priority" 110))
+  (string_start) @PythonFStringPrefix
+  (#lua-match? @PythonFStringPrefix "^f")
+  (#set! "priority" 120))
 
-; Enhanced bracket highlighting for all bracket types
-["(" ")" "[" "]" "{" "}"] @CustomBrackets (#set! "priority" 105)
-
-; F-string interpolation brackets (highest priority)
+; F-string interpolation braces only (VS Code style)
 (interpolation
-  "{" @PythonFString
-  "}" @PythonFString
-  (#set! "priority" 115))
+  "{" @PythonFStringBrace
+  "}" @PythonFStringBrace
+  (#set! "priority" 125))
+
+; Enhanced bracket highlighting for all other bracket types
+["(" ")" "[" "]"] @CustomBrackets (#set! "priority" 105)
+; Note: {} braces in f-strings get special treatment above
 
 ; Function calls and definitions
 (call
