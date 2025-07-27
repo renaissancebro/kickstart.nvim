@@ -250,6 +250,14 @@ vim.keymap.set('n', '<leader>t', function()
 end, { desc = 'Open terminal below', noremap = true, silent = true })
 
 -- Toggle type checking mode
+-- GitHub CLI keybindings
+vim.keymap.set('n', '<leader>gc', ':!gh pr create<CR>', { desc = '[G]it [C]reate PR', noremap = true })
+vim.keymap.set('n', '<leader>gp', ':!gh pr list<CR>', { desc = '[G]it [P]R list', noremap = true })
+vim.keymap.set('n', '<leader>gi', ':!gh issue create<CR>', { desc = '[G]it [I]ssue create', noremap = true })
+vim.keymap.set('n', '<leader>gs', ':!gh status<CR>', { desc = '[G]it [S]tatus', noremap = true })
+vim.keymap.set('n', '<leader>gr', ':!gh repo view<CR>', { desc = '[G]it [R]epo view', noremap = true })
+
+-- Python type checking toggle
 vim.keymap.set('n', '<leader>tc', function()
   local clients = vim.lsp.get_active_clients({ name = 'pyright' })
   if #clients == 0 then
@@ -270,7 +278,7 @@ vim.keymap.set('n', '<leader>tc', function()
   })
   
   print("Type checking mode: " .. new_mode)
-end, { desc = 'Toggle type checking mode (off/basic)', noremap = true, silent = true })
+end, { desc = '[T]oggle type [C]hecking (off/basic)', noremap = true, silent = true })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
