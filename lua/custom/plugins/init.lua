@@ -88,7 +88,12 @@ return {
         custom_highlights = function(colors)
           return {
             PythonFString = { fg = colors.peach, style = { 'bold' } },
-            PythonBrackets = { fg = colors.sky },
+            JSTemplateLiteral = { fg = colors.peach, style = { 'bold' } },
+            CustomBrackets = { fg = colors.sky },
+            HTMLTag = { fg = colors.pink, style = { 'bold' } },
+            HTMLAttr = { fg = colors.green },
+            CSSProperty = { fg = colors.mauve },
+            CSSSelector = { fg = colors.yellow, style = { 'bold' } },
           }
         end,
         integrations = {
