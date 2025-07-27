@@ -9,7 +9,7 @@
   (#set! "priority" 110))
 
 ; Enhanced bracket highlighting for all bracket types
-["(" ")" "[" "]" "{" "}"] @PythonBrackets (#set! "priority" 105)
+["(" ")" "[" "]" "{" "}"] @CustomBrackets (#set! "priority" 105)
 
 ; F-string interpolation brackets (highest priority)
 (interpolation
