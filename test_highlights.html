@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Highlighting Test</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        #header {
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .highlight {
+            color: orange;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- HTML tags should be pink/bold -->
+    <!-- Attributes should be green -->
+    <!-- Brackets should be cyan -->
+    
+    <div class="container" id="main-content">
+        <header class="site-header">
+            <h1 class="title">Test Page</h1>
+            <nav aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a href="#section1" class="nav-link">Section 1</a></li>
+                    <li><a href="#section2" class="nav-link active">Section 2</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <section id="section1" class="content-section">
+                <h2>Testing HTML Highlighting</h2>
+                <p class="description">
+                    This paragraph tests various HTML elements and attributes.
+                    <span class="highlight">This text should be highlighted</span>
+                    with different colors for tags and attributes.
+                </p>
+                
+                <form action="/submit" method="post" class="test-form">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="user@example.com">
+                    
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </section>
+        </main>
+    </div>
+    
+    <script>
+        const message = `Template literal in HTML: ${new Date().getFullYear()}`;
+        console.log(message);
+    </script>
+</body>
+</html>
