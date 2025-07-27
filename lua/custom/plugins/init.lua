@@ -47,44 +47,14 @@ return {
     end,
   },
   
-  -- Catppuccin colorscheme
+  -- Multiple theme support
   {
     'catppuccin/nvim',
     name = 'catppuccin',
     priority = 1000,
     config = function()
       require('catppuccin').setup({
-        flavour = 'mocha', -- latte, frappe, macchiato, mocha
-        background = {
-          light = 'latte',
-          dark = 'mocha',
-        },
-        transparent_background = false,
-        show_end_of_buffer = false,
-        term_colors = false,
-        dim_inactive = {
-          enabled = false,
-          shade = 'dark',
-          percentage = 0.15,
-        },
-        no_italic = false,
-        no_bold = false,
-        no_underline = false,
-        styles = {
-          comments = { 'italic' },
-          conditionals = { 'italic' },
-          loops = {},
-          functions = {},
-          keywords = {},
-          strings = {},
-          variables = {},
-          numbers = {},
-          booleans = {},
-          properties = {},
-          types = {},
-          operators = {},
-        },
-        color_overrides = {},
+        flavour = 'mocha',
         custom_highlights = function(colors)
           return {
             PythonFString = { fg = colors.peach, style = { 'bold' } },
@@ -96,19 +66,16 @@ return {
             CSSSelector = { fg = colors.yellow, style = { 'bold' } },
           }
         end,
-        integrations = {
-          cmp = true,
-          gitsigns = true,
-          nvimtree = true,
-          treesitter = true,
-          notify = false,
-          mini = false,
-        },
+        integrations = { treesitter = true },
       })
-      
-      vim.cmd.colorscheme 'catppuccin'
     end,
   },
+  
+  -- Additional popular themes
+  { 'folke/tokyonight.nvim', priority = 1000 },
+  { 'navarasu/onedark.nvim', priority = 1000 },
+  { 'rebelot/kanagawa.nvim', priority = 1000 },
+  { 'EdenEast/nightfox.nvim', priority = 1000 },
   
   -- Mini.hipatterns for enhanced f-string highlighting
   {
