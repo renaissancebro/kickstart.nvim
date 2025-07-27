@@ -23,27 +23,35 @@ return {
         },
       }
       
-      -- Custom highlight groups
-      vim.api.nvim_set_hl(0, 'PythonFString', { fg = '#fab387', bold = true }) -- Orange f-strings
-      vim.api.nvim_set_hl(0, 'JSTemplateLiteral', { fg = '#fab387', bold = true }) -- Orange template literals
-      vim.api.nvim_set_hl(0, 'CustomBrackets', { fg = '#89dceb' }) -- Cyan brackets
-      vim.api.nvim_set_hl(0, 'HTMLTag', { fg = '#f38ba8', bold = true }) -- Pink HTML tags
-      vim.api.nvim_set_hl(0, 'HTMLAttr', { fg = '#a6e3a1' }) -- Green HTML attributes
-      vim.api.nvim_set_hl(0, 'CSSProperty', { fg = '#cba6f7' }) -- Purple CSS properties
-      vim.api.nvim_set_hl(0, 'CSSSelector', { fg = '#f9e2af', bold = true }) -- Yellow CSS selectors
+      -- Theme-agnostic custom highlight function
+      local function setup_custom_highlights()
+        -- Fallback colors that work with any theme
+        local colors = {
+          orange = vim.g.colors_name == 'catppuccin' and '#fab387' or '#ff8800',
+          cyan = vim.g.colors_name == 'catppuccin' and '#89dceb' or '#00aaaa', 
+          pink = vim.g.colors_name == 'catppuccin' and '#f38ba8' or '#ff69b4',
+          green = vim.g.colors_name == 'catppuccin' and '#a6e3a1' or '#00aa00',
+          purple = vim.g.colors_name == 'catppuccin' and '#cba6f7' or '#aa00aa',
+          yellow = vim.g.colors_name == 'catppuccin' and '#f9e2af' or '#ffaa00',
+        }
+        
+        vim.api.nvim_set_hl(0, 'PythonFString', { fg = colors.orange, bold = true })
+        vim.api.nvim_set_hl(0, 'JSTemplateLiteral', { fg = colors.orange, bold = true })
+        vim.api.nvim_set_hl(0, 'CustomBrackets', { fg = colors.cyan })
+        vim.api.nvim_set_hl(0, 'HTMLTag', { fg = colors.pink, bold = true })
+        vim.api.nvim_set_hl(0, 'HTMLAttr', { fg = colors.green })
+        vim.api.nvim_set_hl(0, 'CSSProperty', { fg = colors.purple })
+        vim.api.nvim_set_hl(0, 'CSSSelector', { fg = colors.yellow, bold = true })
+      end
       
-      -- Apply custom highlights after colorscheme loads
+      -- Apply highlights initially and after colorscheme changes
+      setup_custom_highlights()
       vim.api.nvim_create_autocmd('ColorScheme', {
-        callback = function()
-          vim.api.nvim_set_hl(0, 'PythonFString', { fg = '#fab387', bold = true })
-          vim.api.nvim_set_hl(0, 'JSTemplateLiteral', { fg = '#fab387', bold = true })
-          vim.api.nvim_set_hl(0, 'CustomBrackets', { fg = '#89dceb' })
-          vim.api.nvim_set_hl(0, 'HTMLTag', { fg = '#f38ba8', bold = true })
-          vim.api.nvim_set_hl(0, 'HTMLAttr', { fg = '#a6e3a1' })
-          vim.api.nvim_set_hl(0, 'CSSProperty', { fg = '#cba6f7' })
-          vim.api.nvim_set_hl(0, 'CSSSelector', { fg = '#f9e2af', bold = true })
-        end,
+        callback = setup_custom_highlights,
       })
+      
+      -- Set default colorscheme (change this to switch themes)
+      vim.cmd.colorscheme 'catppuccin' -- Options: catppuccin, tokyonight, onedark, kanagawa, nightfox
     end,
   },
   
