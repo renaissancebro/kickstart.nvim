@@ -28,35 +28,7 @@ return {
     end,
   },
   
-  -- Multiple theme support
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    priority = 1000,
-    config = function()
-      require('catppuccin').setup({
-        flavour = 'mocha',
-        custom_highlights = function(colors)
-          return {
-            PythonFString = { fg = colors.peach, style = { 'bold' } },
-            JSTemplateLiteral = { fg = colors.peach, style = { 'bold' } },
-            CustomBrackets = { fg = colors.sky },
-            HTMLTag = { fg = colors.pink, style = { 'bold' } },
-            HTMLAttr = { fg = colors.green },
-            CSSProperty = { fg = colors.mauve },
-            CSSSelector = { fg = colors.yellow, style = { 'bold' } },
-          }
-        end,
-        integrations = { treesitter = true },
-      })
-    end,
-  },
-  
-  -- Additional popular themes
-  { 'folke/tokyonight.nvim', priority = 1000 },
-  { 'navarasu/onedark.nvim', priority = 1000 },
-  { 'rebelot/kanagawa.nvim', priority = 1000 },
-  { 'EdenEast/nightfox.nvim', priority = 1000 },
+  -- Note: Themes are configured in colorscheme.lua
   
   -- Mini.hipatterns for enhanced f-string highlighting
   {
