@@ -16,3 +16,12 @@
   "{" @PythonFString
   "}" @PythonFString
   (#set! "priority" 115))
+
+; Function calls and definitions
+(call
+  function: (identifier) @Function)
+(call  
+  function: (attribute
+    attribute: (identifier) @Function))
+(function_definition
+  name: (identifier) @Function)
