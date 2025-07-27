@@ -36,7 +36,12 @@ return {
       vim.api.nvim_create_autocmd('ColorScheme', {
         callback = function()
           vim.api.nvim_set_hl(0, 'PythonFString', { fg = '#fab387', bold = true })
-          vim.api.nvim_set_hl(0, 'PythonBrackets', { fg = '#89dceb' })
+          vim.api.nvim_set_hl(0, 'JSTemplateLiteral', { fg = '#fab387', bold = true })
+          vim.api.nvim_set_hl(0, 'CustomBrackets', { fg = '#89dceb' })
+          vim.api.nvim_set_hl(0, 'HTMLTag', { fg = '#f38ba8', bold = true })
+          vim.api.nvim_set_hl(0, 'HTMLAttr', { fg = '#a6e3a1' })
+          vim.api.nvim_set_hl(0, 'CSSProperty', { fg = '#cba6f7' })
+          vim.api.nvim_set_hl(0, 'CSSSelector', { fg = '#f9e2af', bold = true })
         end,
       })
     end,
