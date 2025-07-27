@@ -27,12 +27,13 @@ return {
       local function setup_custom_highlights()
         -- Fallback colors that work with any theme
         local colors = {
-          orange = vim.g.colors_name == 'catppuccin' and '#fab387' or '#ff8800',
-          cyan = vim.g.colors_name == 'catppuccin' and '#89dceb' or '#00aaaa', 
-          pink = vim.g.colors_name == 'catppuccin' and '#f38ba8' or '#ff69b4',
-          green = vim.g.colors_name == 'catppuccin' and '#a6e3a1' or '#00aa00',
-          purple = vim.g.colors_name == 'catppuccin' and '#cba6f7' or '#aa00aa',
-          yellow = vim.g.colors_name == 'catppuccin' and '#f9e2af' or '#ffaa00',
+          orange = vim.g.colors_name == 'onedark' and '#e5c07b' or '#ff8800',
+          cyan = vim.g.colors_name == 'onedark' and '#56b6c2' or '#00aaaa', 
+          pink = vim.g.colors_name == 'onedark' and '#c678dd' or '#ff69b4',
+          green = vim.g.colors_name == 'onedark' and '#98c379' or '#00aa00',
+          purple = vim.g.colors_name == 'onedark' and '#c678dd' or '#aa00aa',
+          yellow = vim.g.colors_name == 'onedark' and '#e5c07b' or '#ffaa00',
+          blue = vim.g.colors_name == 'onedark' and '#61afef' or '#0088ff',
         }
         
         vim.api.nvim_set_hl(0, 'PythonFString', { fg = colors.orange, bold = true })
