@@ -51,7 +51,7 @@ return {
       })
       
       -- Set default colorscheme (change this to switch themes)
-      vim.cmd.colorscheme 'catppuccin' -- Options: catppuccin, tokyonight, onedark, kanagawa, nightfox
+      vim.cmd.colorscheme 'onedark' -- Options: catppuccin, tokyonight, onedark, kanagawa, nightfox
     end,
   },
   
