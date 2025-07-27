@@ -43,6 +43,7 @@ return {
         vim.api.nvim_set_hl(0, 'HTMLAttr', { fg = colors.green })
         vim.api.nvim_set_hl(0, 'CSSProperty', { fg = colors.purple })
         vim.api.nvim_set_hl(0, 'CSSSelector', { fg = colors.yellow, bold = true })
+        vim.api.nvim_set_hl(0, 'Function', { fg = colors.blue, bold = true })
       end
       
       -- Apply highlights initially and after colorscheme changes
