@@ -38,19 +38,9 @@ return {
       local hipatterns = require('mini.hipatterns')
       hipatterns.setup({
         highlighters = {
-          -- Python f-strings
-          fstring = {
-            pattern = "f['\"].-['\"]",
-            group = 'PythonFString',
-          },
-          -- JavaScript template literals
-          template_literal = {
-            pattern = "`.-`",
-            group = 'JSTemplateLiteral',
-          },
-          -- Enhanced bracket highlighting
+          -- Enhanced bracket highlighting (excluding f-string braces handled by treesitter)
           brackets = {
-            pattern = '[()%[%]{}]',
+            pattern = '[()%[%]]',  -- Removed {} since f-strings handle those
             group = 'CustomBrackets',
           },
           -- HTML tags
