@@ -9,7 +9,10 @@ return {
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'python', 'lua', 'vim', 'vimdoc', 'query' },
+        ensure_installed = { 
+          'python', 'lua', 'vim', 'vimdoc', 'query',
+          'html', 'css', 'javascript', 'typescript', 'tsx', 'jsx'
+        },
         auto_install = true,
         highlight = {
           enable = true,
@@ -20,9 +23,14 @@ return {
         },
       }
       
-      -- Custom highlight groups for f-strings and brackets
+      -- Custom highlight groups
       vim.api.nvim_set_hl(0, 'PythonFString', { fg = '#fab387', bold = true }) -- Orange f-strings
-      vim.api.nvim_set_hl(0, 'PythonBrackets', { fg = '#89dceb' }) -- Cyan brackets
+      vim.api.nvim_set_hl(0, 'JSTemplateLiteral', { fg = '#fab387', bold = true }) -- Orange template literals
+      vim.api.nvim_set_hl(0, 'CustomBrackets', { fg = '#89dceb' }) -- Cyan brackets
+      vim.api.nvim_set_hl(0, 'HTMLTag', { fg = '#f38ba8', bold = true }) -- Pink HTML tags
+      vim.api.nvim_set_hl(0, 'HTMLAttr', { fg = '#a6e3a1' }) -- Green HTML attributes
+      vim.api.nvim_set_hl(0, 'CSSProperty', { fg = '#cba6f7' }) -- Purple CSS properties
+      vim.api.nvim_set_hl(0, 'CSSSelector', { fg = '#f9e2af', bold = true }) -- Yellow CSS selectors
       
       -- Apply custom highlights after colorscheme loads
       vim.api.nvim_create_autocmd('ColorScheme', {
