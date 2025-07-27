@@ -123,10 +123,25 @@ return {
             pattern = "f['\"].-['\"]",
             group = 'PythonFString',
           },
+          -- JavaScript template literals
+          template_literal = {
+            pattern = "`.-`",
+            group = 'JSTemplateLiteral',
+          },
           -- Enhanced bracket highlighting
           brackets = {
             pattern = '[()%[%]{}]',
-            group = 'PythonBrackets',
+            group = 'CustomBrackets',
+          },
+          -- HTML tags
+          html_tags = {
+            pattern = "</?%w+[^>]*>",
+            group = 'HTMLTag',
+          },
+          -- CSS selectors (basic)
+          css_selectors = {
+            pattern = "%.%w+",
+            group = 'CSSSelector',
           },
         },
       })
