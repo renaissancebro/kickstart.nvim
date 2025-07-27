@@ -214,12 +214,21 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
--- Run current file in terminal split
+-- Run current file in terminal split (reuses terminal)
 vim.keymap.set('n', '<leader>r', function()
   local file = vim.fn.expand '%'
   vim.cmd 'w' -- save file before running
+  
+  -- Close any existing terminal buffers
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == 'terminal' then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+  
+  -- Create new terminal
   vim.cmd('split | resize 10 | terminal ' .. get_run_cmd(file) .. '; exit')
-end, { desc = 'Run current file in terminal', noremap = true, silent = true })
+end, { desc = 'Run current file in terminal (single)', noremap = true, silent = true })
 
 -- Helper: detect run command based on file extension
 function get_run_cmd(file)
