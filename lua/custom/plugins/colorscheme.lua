@@ -1,41 +1,41 @@
 return {
-  -- Keep cyberdream but don't auto-load it
+  -- Cyberdream theme (now active)
   {
     'scottmckendry/cyberdream.nvim',
-    lazy = true,  -- Don't auto-load
-  },
-  
-  -- OneDark theme (now active)
-  {
-    'navarasu/onedark.nvim',
     lazy = false,
     priority = 1000,
     config = function()
-      require('onedark').setup {
-        style = 'dark', -- 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'
+      require('cyberdream').setup {
         transparent = false,
-        code_style = {
-          comments = 'italic',
-          keywords = 'none',
-          functions = 'bold',
-          strings = 'none',
-          variables = 'none'
-        },
-        colors = {}, -- Override default colors
-        highlights = {
-          -- VS Code-style f-string highlighting
-          PythonFStringPrefix = { fg = '#c678dd', fmt = 'bold' }, -- Purple for f-prefix (like keywords)
-          PythonFStringBrace = { fg = '#e5c07b', fmt = 'bold' },  -- Yellow for {} braces
-          JSTemplateBrace = { fg = '#e5c07b', fmt = 'bold' },     -- Yellow for ${} braces  
-          CustomBrackets = { fg = '#56b6c2' },                   -- Cyan for normal brackets
-          HTMLTag = { fg = '#c678dd', fmt = 'bold' },            -- Purple for HTML tags
-          HTMLAttr = { fg = '#98c379' },                         -- Green for HTML attributes
-          CSSProperty = { fg = '#c678dd' },                      -- Purple for CSS properties
-          CSSSelector = { fg = '#e5c07b', fmt = 'bold' },        -- Yellow for CSS selectors
-          Function = { fg = '#61afef', fmt = 'bold' },           -- Blue for functions
+        italic_comments = true,
+        hide_fillchars = false,
+        borderless_telescope = true,
+        terminal_colors = true,
+        cache = false,
+        
+        -- VS Code-style highlighting with Cyberdream colors
+        theme = {
+          highlights = {
+            -- VS Code-style f-string highlighting (adapted for Cyberdream)
+            PythonFStringPrefix = { fg = '#bd5eff', style = 'bold' }, -- Purple for f-prefix
+            PythonFStringBrace = { fg = '#ffbd5e', style = 'bold' },  -- Orange for {} braces
+            JSTemplateBrace = { fg = '#ffbd5e', style = 'bold' },     -- Orange for ${} braces  
+            CustomBrackets = { fg = '#5ef1ff' },                      -- Cyan for normal brackets
+            HTMLTag = { fg = '#bd5eff', style = 'bold' },             -- Purple for HTML tags
+            HTMLAttr = { fg = '#5eff6c' },                            -- Green for HTML attributes
+            CSSProperty = { fg = '#bd5eff' },                         -- Purple for CSS properties
+            CSSSelector = { fg = '#ffbd5e', style = 'bold' },         -- Orange for CSS selectors
+            Function = { fg = '#5ea1ff', style = 'bold' },            -- Blue for functions
+          }
         }
       }
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'cyberdream'
     end,
+  },
+  
+  -- Keep OneDark available but not active
+  {
+    'navarasu/onedark.nvim',
+    lazy = true,
   },
 }
