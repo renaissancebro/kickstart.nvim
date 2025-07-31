@@ -1269,7 +1269,6 @@ require('lazy').setup({
         },
       }
     end,
-    },
     -- File explorer
     { 'nvim-tree/nvim-tree.lua', cmd = 'NvimTreeToggle' },
 
