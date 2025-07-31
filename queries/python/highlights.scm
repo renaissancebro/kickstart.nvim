@@ -1,27 +1,101 @@
 ; extends
 
-; VS Code-style f-string highlighting - only highlight prefix and braces
+; VS Code-style f-string highlighting - enhanced
 ; F-string prefix (the 'f' before quotes)
 (string
-  (string_start) @PythonFStringPrefix
-  (#lua-match? @PythonFStringPrefix "^f")
-  (#set! "priority" 120))
+  (string_start) @string.special
+  (#lua-match? @string.special "^f")
+  (#set! "priority" 130))
 
-; F-string interpolation braces only (VS Code style)
+; F-string interpolation braces with enhanced priority
 (interpolation
-  "{" @PythonFStringBrace
-  "}" @PythonFStringBrace
+  "{" @punctuation.special
+  "}" @punctuation.special
+  (#set! "priority" 135))
+
+; F-string content expressions
+(interpolation
+  (identifier) @variable
   (#set! "priority" 125))
 
-; Enhanced bracket highlighting for all other bracket types
-["(" ")" "[" "]"] @CustomBrackets (#set! "priority" 105)
-; Note: {} braces in f-strings get special treatment above
+(interpolation
+  (call
+    function: (identifier) @function.call)
+  (#set! "priority" 125))
 
-; Function calls and definitions
+(interpolation
+  (attribute
+    object: (identifier) @variable
+    attribute: (identifier) @variable.member)
+  (#set! "priority" 125))
+
+; Format specifiers in f-strings
+(format_specifier) @string.escape
+
+; Enhanced bracket highlighting with different colors
+; Function call parentheses
 (call
-  function: (identifier) @Function)
+  "(" @punctuation.bracket
+  ")" @punctuation.bracket
+  (#set! "priority" 110))
+
+; List brackets
+(list
+  "[" @punctuation.bracket
+  "]" @punctuation.bracket  
+  (#set! "priority" 110))
+
+; Dictionary/set braces (but not f-string braces)
+(dictionary
+  "{" @punctuation.bracket
+  "}" @punctuation.bracket
+  (#set! "priority" 110))
+
+(set
+  "{" @punctuation.bracket
+  "}" @punctuation.bracket
+  (#set! "priority" 110))
+
+; Tuple parentheses
+(tuple
+  "(" @punctuation.bracket
+  ")" @punctuation.bracket
+  (#set! "priority" 110))
+
+; Subscript brackets
+(subscript
+  "[" @punctuation.bracket
+  "]" @punctuation.bracket
+  (#set! "priority" 110))
+
+; Parameter lists
+(parameters
+  "(" @punctuation.bracket
+  ")" @punctuation.bracket
+  (#set! "priority" 110))
+
+; Function definitions
+(function_definition
+  name: (identifier) @function
+  (#set! "priority" 115))
+
+; Enhanced function calls
+(call
+  function: (identifier) @function.call
+  (#set! "priority" 115))
+
 (call  
   function: (attribute
-    attribute: (identifier) @Function))
-(function_definition
-  name: (identifier) @Function)
+    attribute: (identifier) @function.method)
+  (#set! "priority" 115))
+
+; Built-in functions
+((identifier) @function.builtin
+ (#any-of? @function.builtin
+   "print" "len" "range" "enumerate" "zip" "map" "filter" 
+   "sorted" "sum" "max" "min" "abs" "round" "type" "str" 
+   "int" "float" "bool" "list" "dict" "set" "tuple"))
+
+; Constants
+((identifier) @constant
+ (#any-of? @constant "None" "True" "False" "__name__" "__main__"))
