@@ -38,7 +38,41 @@ return {
           hl.Boolean = { fg = c.orange }
           hl.Type = { fg = c.cyan }
           hl.Operator = { fg = c.purple }
-          hl.Delimiter = { fg = c.fg_dark }
+          
+          -- Enhanced bracket and punctuation highlighting
+          hl.Delimiter = { fg = c.yellow }  -- General delimiters
+          hl["@punctuation.delimiter"] = { fg = c.yellow }  -- Commas, semicolons
+          hl["@punctuation.bracket"] = { fg = c.cyan }      -- [], {}, ()
+          hl["@punctuation.special"] = { fg = c.red }       -- Special punctuation
+          hl.MatchParen = { fg = c.orange, bold = true, bg = c.bg_highlight }
+          
+          -- Function call parentheses
+          hl["@function.call"] = { fg = c.blue }
+          hl["@function.builtin"] = { fg = c.cyan }
+          hl["@function.macro"] = { fg = c.red }
+          
+          -- Variables and identifiers
+          hl["@variable"] = { fg = c.fg }
+          hl["@variable.builtin"] = { fg = c.red }
+          hl["@variable.parameter"] = { fg = c.orange }
+          hl["@variable.member"] = { fg = c.cyan }
+          
+          -- Python f-string specific highlighting
+          hl["@string.escape"] = { fg = c.magenta }
+          hl["@string.regexp"] = { fg = c.blue }
+          hl["@string.special"] = { fg = c.yellow, bold = true }  -- f-string braces
+          hl["@string.special.symbol"] = { fg = c.magenta }
+          
+          -- Python specific treesitter groups
+          hl["@string.documentation.python"] = { fg = c.green, italic = true }
+          hl["@keyword.function.python"] = { fg = c.purple, bold = true }
+          hl["@keyword.import.python"] = { fg = c.purple, bold = true }
+          hl["@type.builtin.python"] = { fg = c.cyan }
+          
+          -- JavaScript/TypeScript template literals
+          hl["@string.template"] = { fg = c.green }
+          hl["@punctuation.special.template"] = { fg = c.yellow, bold = true }
+          hl["@embedded"] = { fg = c.blue }
           
           -- HTML specific highlighting
           hl.htmlTag = { fg = c.red }
@@ -46,6 +80,9 @@ return {
           hl.htmlArg = { fg = c.yellow }
           hl.htmlString = { fg = c.green }
           hl.htmlEndTag = { fg = c.red }
+          hl["@tag"] = { fg = c.red }
+          hl["@tag.attribute"] = { fg = c.yellow }
+          hl["@tag.delimiter"] = { fg = c.cyan }
           
           -- CSS specific highlighting  
           hl.cssTagName = { fg = c.red, bold = true }
@@ -57,6 +94,8 @@ return {
           hl.cssValueNumber = { fg = c.orange }
           hl.cssValueKeyword = { fg = c.purple }
           hl.cssColor = { fg = c.orange }
+          hl["@property.css"] = { fg = c.cyan }
+          hl["@type.css"] = { fg = c.orange }
           
           -- JavaScript/TypeScript specific highlighting
           hl.jsFunction = { fg = c.purple, bold = true }
@@ -66,6 +105,22 @@ return {
           hl.jsFuncCall = { fg = c.blue }
           hl.jsTemplateBraces = { fg = c.yellow, bold = true }
           hl.jsTemplateString = { fg = c.green }
+          hl["@constructor.javascript"] = { fg = c.cyan }
+          hl["@constructor.typescript"] = { fg = c.cyan }
+          
+          -- More granular operators
+          hl["@operator"] = { fg = c.purple }
+          hl["@keyword.operator"] = { fg = c.purple }
+          hl["@keyword.return"] = { fg = c.purple, bold = true }
+          hl["@keyword.function"] = { fg = c.purple, bold = true }
+          hl["@keyword.conditional"] = { fg = c.purple, bold = true }
+          hl["@keyword.repeat"] = { fg = c.purple, bold = true }
+          
+          -- Constants and literals
+          hl["@constant"] = { fg = c.orange }
+          hl["@constant.builtin"] = { fg = c.orange, bold = true }
+          hl["@constant.macro"] = { fg = c.red }
+          hl.Constant = { fg = c.orange }
           
           -- Python specific highlighting
           hl.pythonBuiltin = { fg = c.cyan }
