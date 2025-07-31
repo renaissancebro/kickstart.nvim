@@ -1232,6 +1232,43 @@ require('lazy').setup({
           },
         },
       },
+      -- Rainbow bracket highlighting
+      rainbow = {
+        enable = true,
+        extended_mode = true,
+        max_file_lines = nil,
+      },
+    },
+    config = function(_, opts)
+      -- Setup treesitter
+      require('nvim-treesitter.configs').setup(opts)
+      
+      -- Configure rainbow delimiters
+      local rainbow_delimiters = require 'rainbow-delimiters'
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [''] = rainbow_delimiters.strategy['global'],
+          vim = rainbow_delimiters.strategy['local'],
+        },
+        query = {
+          [''] = 'rainbow-delimiters',
+          lua = 'rainbow-blocks',
+        },
+        priority = {
+          [''] = 110,
+          lua = 210,
+        },
+        highlight = {
+          'RainbowDelimiterRed',
+          'RainbowDelimiterYellow', 
+          'RainbowDelimiterBlue',
+          'RainbowDelimiterOrange',
+          'RainbowDelimiterGreen',
+          'RainbowDelimiterViolet',
+          'RainbowDelimiterCyan',
+        },
+      }
+    end,
     },
     -- File explorer
     { 'nvim-tree/nvim-tree.lua', cmd = 'NvimTreeToggle' },
