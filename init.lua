@@ -1171,6 +1171,13 @@ require('lazy').setup({
         'c',
         'diff',
         'html',
+        'css',
+        'javascript',
+        'typescript',
+        'tsx',
+        'json',
+        'yaml',
+        'python',
         'lua',
         'luadoc',
         'markdown',
@@ -1178,20 +1185,49 @@ require('lazy').setup({
         'query',
         'vim',
         'vimdoc',
-        'tsx',
-        'css',
+        'sql',
+        'regex',
       },
 
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
         enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
+        -- Enhanced highlighting for better VS Code-like experience
+        additional_vim_regex_highlighting = { 'ruby', 'python' },
+        -- Disable slow treesitter highlight for large files
+        disable = function(lang, buf)
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            return true
+          end
+        end,
       },
       indent = { enable = true, disable = { 'ruby' } },
+      -- Enhanced incremental selection
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<C-space>',
+          node_incremental = '<C-space>',
+          scope_incremental = false,
+          node_decremental = '<bs>',
+        },
+      },
+      -- Textobjects for better code navigation
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
+            ['ac'] = '@class.outer',
+            ['ic'] = '@class.inner',
+          },
+        },
+      },
     },
     -- File explorer
     { 'nvim-tree/nvim-tree.lua', cmd = 'NvimTreeToggle' },
