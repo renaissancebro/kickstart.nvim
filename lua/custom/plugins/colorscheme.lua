@@ -127,6 +127,15 @@ return {
           hl.pythonFunction = { fg = c.blue, bold = true }
           hl.pythonDecorator = { fg = c.yellow }
           hl.pythonException = { fg = c.red }
+          
+          -- Rainbow delimiter colors
+          hl.RainbowDelimiterRed = { fg = c.red }
+          hl.RainbowDelimiterYellow = { fg = c.yellow }
+          hl.RainbowDelimiterBlue = { fg = c.blue }
+          hl.RainbowDelimiterOrange = { fg = c.orange }
+          hl.RainbowDelimiterGreen = { fg = c.green }
+          hl.RainbowDelimiterViolet = { fg = c.purple }
+          hl.RainbowDelimiterCyan = { fg = c.cyan }
         end,
       }
       vim.cmd.colorscheme 'tokyonight'
