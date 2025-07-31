@@ -139,6 +139,35 @@ return {
         end,
       }
       vim.cmd.colorscheme 'tokyonight'
+      
+      -- Force apply custom highlights after colorscheme loads
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        callback = function()
+          -- Enhanced treesitter highlighting
+          vim.api.nvim_set_hl(0, "@punctuation.bracket", { fg = "#7dcfff" })  -- cyan
+          vim.api.nvim_set_hl(0, "@punctuation.delimiter", { fg = "#e0af68" }) -- yellow
+          vim.api.nvim_set_hl(0, "@punctuation.special", { fg = "#f7768e" })   -- red
+          vim.api.nvim_set_hl(0, "@string.special", { fg = "#e0af68", bold = true }) -- f-string braces
+          vim.api.nvim_set_hl(0, "@punctuation.special.template", { fg = "#e0af68", bold = true }) -- template literals
+          
+          -- Function and variable highlighting
+          vim.api.nvim_set_hl(0, "@function.call", { fg = "#7aa2f7" })
+          vim.api.nvim_set_hl(0, "@function.builtin", { fg = "#7dcfff" })
+          vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#f7768e" })
+          vim.api.nvim_set_hl(0, "@variable.parameter", { fg = "#ff9e64" })
+          
+          -- HTML highlighting
+          vim.api.nvim_set_hl(0, "@tag", { fg = "#f7768e", bold = true })
+          vim.api.nvim_set_hl(0, "@tag.attribute", { fg = "#e0af68" })
+          vim.api.nvim_set_hl(0, "@tag.delimiter", { fg = "#7dcfff" })
+        end,
+      })
+      
+      -- Apply highlights immediately
+      vim.schedule(function()
+        vim.cmd("doautocmd ColorScheme")
+      end)
     end,
   },
   
