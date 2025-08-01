@@ -1176,7 +1176,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
-      'HiPhish/rainbow-delimiters.nvim', -- Bracket pair colorization
+      -- 'HiPhish/rainbow-delimiters.nvim', -- Temporarily disabled - may cause conflicts
     },
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
