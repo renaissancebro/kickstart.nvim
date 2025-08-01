@@ -1244,38 +1244,18 @@ require('lazy').setup({
       },
     },
     config = function(_, opts)
-      -- Setup treesitter first
+      -- Setup treesitter 
       require('nvim-treesitter.configs').setup(opts)
       
-      -- Configure rainbow delimiters after treesitter
-      vim.schedule(function()
-        local ok, rainbow_delimiters = pcall(require, 'rainbow-delimiters')
-        if ok then
-          vim.g.rainbow_delimiters = {
-            strategy = {
-              [''] = rainbow_delimiters.strategy['global'],
-              vim = rainbow_delimiters.strategy['local'],
-            },
-            query = {
-              [''] = 'rainbow-delimiters',
-              lua = 'rainbow-blocks',
-            },
-            priority = {
-              [''] = 110,
-              lua = 210,
-            },
-            highlight = {
-              'RainbowDelimiterRed',
-              'RainbowDelimiterYellow', 
-              'RainbowDelimiterBlue',
-              'RainbowDelimiterOrange',
-              'RainbowDelimiterGreen',
-              'RainbowDelimiterViolet',
-              'RainbowDelimiterCyan',
-            },
-          }
-        end
-      end)
+      -- Simple highlight refresh for Python files
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "python",
+        callback = function()
+          vim.schedule(function()
+            vim.cmd("TSBufEnable highlight")
+          end)
+        end,
+      })
     end,
     -- File explorer
     { 'nvim-tree/nvim-tree.lua', cmd = 'NvimTreeToggle' },
