@@ -257,6 +257,16 @@ vim.keymap.set('n', '<leader>gi', ':!gh issue create<CR>', { desc = '[G]it [I]ss
 vim.keymap.set('n', '<leader>gs', ':!gh status<CR>', { desc = '[G]it [S]tatus', noremap = true })
 vim.keymap.set('n', '<leader>gr', ':!gh repo view<CR>', { desc = '[G]it [R]epo view', noremap = true })
 
+-- Syntax highlighting fix keybinding
+vim.keymap.set('n', '<leader>sy', function()
+  vim.cmd('TSBufDisable highlight')
+  vim.cmd('TSBufEnable highlight') 
+  vim.cmd('syntax clear')
+  vim.cmd('syntax on')
+  vim.cmd('doautocmd FileType')
+  print("Syntax highlighting refreshed!")
+end, { desc = '[S]yntax refresh', noremap = true, silent = true })
+
 -- Python type checking toggle
 vim.keymap.set('n', '<leader>tc', function()
   local clients = vim.lsp.get_active_clients({ name = 'pyright' })
