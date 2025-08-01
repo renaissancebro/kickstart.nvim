@@ -157,6 +157,14 @@ return {
           vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#f7768e" })
           vim.api.nvim_set_hl(0, "@variable.parameter", { fg = "#ff9e64" })
           
+          -- Python-specific highlighting
+          vim.api.nvim_set_hl(0, "@function.decorator", { fg = "#e0af68", bold = true }) -- decorators
+          vim.api.nvim_set_hl(0, "@keyword.async", { fg = "#bb9af7", bold = true })     -- async/await
+          vim.api.nvim_set_hl(0, "@keyword.import", { fg = "#bb9af7", bold = true })   -- import/from
+          vim.api.nvim_set_hl(0, "@module", { fg = "#7dcfff" })                        -- module names
+          vim.api.nvim_set_hl(0, "@type.class", { fg = "#7dcfff", bold = true })       -- class names
+          vim.api.nvim_set_hl(0, "@function.method", { fg = "#7aa2f7" })               -- method calls
+          
           -- HTML highlighting
           vim.api.nvim_set_hl(0, "@tag", { fg = "#f7768e", bold = true })
           vim.api.nvim_set_hl(0, "@tag.attribute", { fg = "#e0af68" })
