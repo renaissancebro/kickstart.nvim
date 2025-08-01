@@ -99,3 +99,65 @@
 ; Constants
 ((identifier) @constant
  (#any-of? @constant "None" "True" "False" "__name__" "__main__"))
+
+; Enhanced decorator support including module.decorator patterns
+(decorator 
+  "@" @punctuation.special
+  (identifier) @function.decorator
+  (#set! "priority" 130))
+
+(decorator
+  "@" @punctuation.special
+  (attribute
+    object: (identifier) @module
+    attribute: (identifier) @function.decorator)
+  (#set! "priority" 130))
+
+; Async/await keywords
+((identifier) @keyword.async
+ (#any-of? @keyword.async "async" "await")
+ (#set! "priority" 125))
+
+; Function definitions with async
+(function_definition
+  "async" @keyword.async
+  "def" @keyword.function
+  name: (identifier) @function
+  (#set! "priority" 120))
+
+; Import statements
+(import_statement
+  "import" @keyword.import
+  (#set! "priority" 125))
+
+(import_from_statement
+  "from" @keyword.import
+  "import" @keyword.import
+  (#set! "priority" 125))
+
+; Module names in imports
+(import_statement
+  name: (dotted_name
+    (identifier) @module))
+
+(import_from_statement
+  module_name: (dotted_name
+    (identifier) @module))
+
+; Aliased imports
+(aliased_import
+  name: (dotted_name
+    (identifier) @module)
+  alias: (identifier) @variable)
+
+; Method calls with better highlighting
+(call
+  function: (attribute
+    object: (identifier) @variable
+    attribute: (identifier) @function.method)
+  (#set! "priority" 120))
+
+; Class definitions
+(class_definition
+  name: (identifier) @type.class
+  (#set! "priority" 120))
