@@ -38,6 +38,14 @@ return {
         vim.api.nvim_set_hl(0, "@variable.builtin", { fg = "#f7768e" })
         vim.api.nvim_set_hl(0, "@variable.parameter", { fg = "#ff9e64" })
         
+        -- Python-specific enhancements
+        vim.api.nvim_set_hl(0, "@function.decorator", { fg = "#e0af68", bold = true })
+        vim.api.nvim_set_hl(0, "@keyword.async", { fg = "#bb9af7", bold = true })
+        vim.api.nvim_set_hl(0, "@keyword.import", { fg = "#bb9af7", bold = true })
+        vim.api.nvim_set_hl(0, "@module", { fg = "#7dcfff" })
+        vim.api.nvim_set_hl(0, "@type.class", { fg = "#7dcfff", bold = true })
+        vim.api.nvim_set_hl(0, "@function.method", { fg = "#7aa2f7" })
+        
         -- Template literals (JS/TS)
         vim.api.nvim_set_hl(0, "@punctuation.special.template", { fg = "#e0af68", bold = true })
         
